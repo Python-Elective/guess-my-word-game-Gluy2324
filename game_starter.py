@@ -50,18 +50,7 @@ def is_word_guessed(secret_word, letters_guessed):
       False otherwise
     '''
     # FILL IN YOUR CODE HERE...
-    for letter in secret_word:
-        if letters_guessed != letter:
-            return False
-        else:
-            return True
-"""
-for every letter in secret_word
-  if the letter is not in letter_guessed
-    stop looking and return false
-  else
-    return true
-"""
+    pass
 
 ### Testcases
 # print(is_word_guessed('apple', ['a', 'e', 'i', 'k', 'p', 'r', 's']))
