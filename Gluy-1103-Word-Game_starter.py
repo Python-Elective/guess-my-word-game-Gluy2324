@@ -46,3 +46,21 @@ def get_guessed_word(secret_word, letters_guessed):
 print(get_guessed_word('apple', ['a', 'e', 'i', 'k', 'p', 'r', 's']))
 print(get_guessed_word('durian', ['h', 'a', 'c', 'd', 'i', 'm', 'n', 'r', 't', 'u']))
 print(get_guessed_word('pineapple', []))
+
+def get_available_letters(letters_guessed):
+    '''
+    letters_guessed: list, what letters have been guessed so far
+    returns: string, comprised of letters that represents what letters have not
+      yet been guessed.
+    '''  
+    import string
+    alphabet = list(string.ascii_lowercase)
+
+    for letter in alphabet:
+        if letter in letters_guessed:
+            alphabet.remove(letter)
+
+    return ' '.join(alphabet)
+    
+print(get_available_letters('apple'))
+print(get_available_letters('')) 
