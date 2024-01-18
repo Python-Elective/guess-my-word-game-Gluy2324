@@ -1,3 +1,41 @@
+import random
+import string
+
+WORDLIST_FILENAME = "word_list.txt"
+
+def load_words():
+    """
+    Returns a list of valid words. Words are strings of lowercase letters.
+    
+    Depending on the size of the word list, this function may
+    take a while to finish.
+    """
+    print("Reading word_list file...")
+    # inFile: file
+    inFile = open(WORDLIST_FILENAME, 'r')
+    # line: string
+    line = inFile.readline()
+    # word_list: list of strings
+    word_list = line.split()
+    print(len(word_list), "words found")
+    return word_list
+
+def choose_word(word_list):
+    """
+    word_list (list): list of words (strings)
+
+    Returns a word from word_list at random
+    """
+    return random.choice(word_list)
+
+# end of helper code
+# -----------------------------------
+
+# Load the list of words into the variable word_list
+# so that it can be accessed from anywhere in the program
+word_list = load_words()
+
+
 def is_word_guessed(secret_word, letters_guessed):
     '''
     secret_word: string, the word the user is guessing
@@ -18,15 +56,6 @@ def is_word_guessed(secret_word, letters_guessed):
     return True
         
 
-### Testcases
-print(is_word_guessed('apple', ['a', 'e', 'i', 'k', 'p', 'r', 's']))
-print(is_word_guessed('durian', ['h', 'a', 'c', 'd', 'i', 'm', 'n', 'r', 't', 'u']))
-print(is_word_guessed('pineapple', []))
-
-
-
-
-
 
 def get_guessed_word(secret_word, letters_guessed):
     '''
@@ -43,10 +72,6 @@ def get_guessed_word(secret_word, letters_guessed):
             output_string += "_ " 
     return output_string
 
-print(get_guessed_word('apple', ['a', 'e', 'i', 'k', 'p', 'r', 's']))
-print(get_guessed_word('durian', ['h', 'a', 'c', 'd', 'i', 'm', 'n', 'r', 't', 'u']))
-print(get_guessed_word('pineapple', []))
-
 def get_available_letters(letters_guessed):
     '''
     letters_guessed: list, what letters have been guessed so far
@@ -62,5 +87,61 @@ def get_available_letters(letters_guessed):
 
     return ' '.join(alphabet)
     
-print(get_available_letters('apple'))
-print(get_available_letters('')) 
+def game_loop(secret_word):
+    '''
+    secret_word: string, the secret word to guess.
+
+    Starts up an interactive game.
+
+    * At the start of the game, let the user know how many 
+      letters the secret_word contains.
+
+    * Ask the user to supply one guess (i.e. letter) per round.
+
+    * The user should receive feedback immediately after each guess 
+      about whether their guess appears in the computers word.
+
+    * After each round, you should also display to the user the 
+      partially guessed word so far, as well as letters that the 
+      user has not yet guessed.
+
+    Follows the other limitations detailed in the problem write-up.
+    '''
+    guesses = 8
+    print("Let's the game begin! \nI am thinking of a word with", len(secret_word), "letters \n")
+
+    while guesses > 0:
+        print("You have", guesses, "guesses remaining")
+        available_letters = get_available_letters([])
+        print("Letters available to you:", available_letters)
+        guess = (input("Guess a letter:"))
+        letter_guessed = []
+        if guess in secret_word:
+            print("Correct : ", get_guessed_word(secret_word, letter_guessed), "\n")
+            letter_guessed.append(guess)
+        elif guess in letter_guessed:
+            print("You fool! You tried this letter already: ", get_guessed_word(secret_word, letter_guessed), "\n")
+            letter_guessed.append(guess)
+            guesses -= 1
+        else:
+            print("Incorrect, this letter is not in my word: ", get_guessed_word(secret_word, letter_guessed), "\n")
+            guesses -= 1
+
+        
+    
+
+
+
+    
+
+def main():
+    secret_word = choose_word(word_list)
+    game_loop(secret_word)
+
+# Testcases
+# you might want to pick your own
+# secret_word while you're testing
+
+
+if __name__ == "__main__":
+    main()
