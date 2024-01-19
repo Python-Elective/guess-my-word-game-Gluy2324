@@ -108,31 +108,35 @@ def game_loop(secret_word):
     Follows the other limitations detailed in the problem write-up.
     '''
     guesses = 8
+    letters_guessed = []
     print("Let's the game begin! \nI am thinking of a word with", len(secret_word), "letters \n")
 
     while guesses > 0:
+
         print("You have", guesses, "guesses remaining")
-        available_letters = get_available_letters([])
-        print("Letters available to you:", available_letters)
-        guess = (input("Guess a letter:"))
-        letter_guessed = []
+        print("Letters available to you:", get_available_letters(letters_guessed))
+        guess = (input("Guess a letter: "))
+        
+
         if guess in secret_word:
-            print("Correct : ", get_guessed_word(secret_word, letter_guessed), "\n")
-            letter_guessed.append(guess)
-        elif guess in letter_guessed:
-            print("You fool! You tried this letter already: ", get_guessed_word(secret_word, letter_guessed), "\n")
-            letter_guessed.append(guess)
+            letters_guessed.append(guess)
+            print("Correct : ", get_guessed_word(secret_word, letters_guessed), "\n")
+        elif guess in letters_guessed:
+            print("You fool! You tried this letter already: ", get_guessed_word(secret_word, letters_guessed), "\n")
             guesses -= 1
         else:
-            print("Incorrect, this letter is not in my word: ", get_guessed_word(secret_word, letter_guessed), "\n")
+            letters_guessed.append(guess)
+            print("Incorrect, this letter is not in my word: ", get_guessed_word(secret_word, letters_guessed), "\n")
             guesses -= 1
 
+        if is_word_guessed(secret_word, letters_guessed):
+            print("You WIN")
+            break
         
-    
+    if guesses == 0:
+        print("GAME OVER ! The word was", secret_word, ".")
 
-
-
-    
+        
 
 def main():
     secret_word = choose_word(word_list)
