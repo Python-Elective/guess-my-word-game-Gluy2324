@@ -111,7 +111,7 @@ def game_loop(secret_word):
     letters_guessed = []
     print("Let's the game begin! \nI am thinking of a word with", len(secret_word), "letters \n")
 
-    while guesses > 0:
+    while True: #guesses > 0:
 
         print("You have", guesses, "guesses remaining")
         print("Letters available to you:", get_available_letters(letters_guessed))
@@ -123,7 +123,7 @@ def game_loop(secret_word):
             print("Correct : ", get_guessed_word(secret_word, letters_guessed), "\n")
         elif guess in letters_guessed:
             print("You fool! You tried this letter already: ", get_guessed_word(secret_word, letters_guessed), "\n")
-            guesses -= 1
+            # guesses -= 1
         else:
             letters_guessed.append(guess)
             print("Incorrect, this letter is not in my word: ", get_guessed_word(secret_word, letters_guessed), "\n")
@@ -133,8 +133,9 @@ def game_loop(secret_word):
             print("You WIN")
             break
         
-    if guesses == 0:
-        print("GAME OVER ! The word was", secret_word, ".")
+        if guesses == 0:
+            print("GAME OVER ! The word was", secret_word, ".")
+            break
 
         
 
