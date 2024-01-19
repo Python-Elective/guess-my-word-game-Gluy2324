@@ -115,7 +115,7 @@ def game_loop(secret_word):
 
         print("You have", guesses, "guesses remaining")
         print("Letters available to you:", get_available_letters(letters_guessed))
-        guess = (input("Guess a letter: "))
+        guess = input("Guess a letter: ").lower()
         
 
         if guess in secret_word:
