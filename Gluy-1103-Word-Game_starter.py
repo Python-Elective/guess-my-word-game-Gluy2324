@@ -11,11 +11,8 @@ def load_words():
     take a while to finish.
     """
     print("Reading word_list file...")
-    # inFile: file
     inFile = open(WORDLIST_FILENAME, 'r')
-    # line: string
     line = inFile.readline()
-    # word_list: list of strings
     word_list = line.split()
     print(len(word_list), "words found")
     return word_list
@@ -28,11 +25,6 @@ def choose_word(word_list):
     """
     return random.choice(word_list)
 
-# end of helper code
-# -----------------------------------
-
-# Load the list of words into the variable word_list
-# so that it can be accessed from anywhere in the program
 word_list = load_words()
 
 
@@ -55,8 +47,7 @@ def is_word_guessed(secret_word, letters_guessed):
             return False
     return True
         
-
-
+        
 def get_guessed_word(secret_word, letters_guessed):
     '''
     secret_word: string, the word the user is guessing
@@ -92,26 +83,12 @@ def game_loop(secret_word):
     secret_word: string, the secret word to guess.
 
     Starts up an interactive game.
-
-    * At the start of the game, let the user know how many 
-      letters the secret_word contains.
-
-    * Ask the user to supply one guess (i.e. letter) per round.
-
-    * The user should receive feedback immediately after each guess 
-      about whether their guess appears in the computers word.
-
-    * After each round, you should also display to the user the 
-      partially guessed word so far, as well as letters that the 
-      user has not yet guessed.
-
-    Follows the other limitations detailed in the problem write-up.
     '''
     guesses = 8
     letters_guessed = []
     print("Let's the game begin! \nI am thinking of a word with", len(secret_word), "letters \n")
 
-    while True: #guesses > 0:
+    while True:
 
         print("You have", guesses, "guesses remaining")
         print("Letters available to you:", get_available_letters(letters_guessed))
@@ -123,7 +100,6 @@ def game_loop(secret_word):
             print("Correct : ", get_guessed_word(secret_word, letters_guessed), "\n")
         elif guess in letters_guessed:
             print("You fool! You tried this letter already: ", get_guessed_word(secret_word, letters_guessed), "\n")
-            # guesses -= 1
         else:
             letters_guessed.append(guess)
             print("Incorrect, this letter is not in my word: ", get_guessed_word(secret_word, letters_guessed), "\n")
@@ -137,16 +113,9 @@ def game_loop(secret_word):
             print("GAME OVER ! The word was", secret_word, ".")
             break
 
-        
-
 def main():
     secret_word = choose_word(word_list)
     game_loop(secret_word)
-
-# Testcases
-# you might want to pick your own
-# secret_word while you're testing
-
 
 if __name__ == "__main__":
     main()
